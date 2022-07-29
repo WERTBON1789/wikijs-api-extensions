@@ -12,7 +12,7 @@ setup(
     author_email='jan210404@gmx.de',
     packages=find_packages(),
     license='LICENSE',
-    description='A simple wikijs API wrapper',
-    long_description="""Github Repository: https://github.com/WERTBON1789/wikijs-api-wrapper""",
+    description='A extension package for the wikijspy api wrapper',
+    long_description="""Github Repository: https://github.com/WERTBON1789/wikijs-api-extensions""",
     install_requires=install_requires
 )
