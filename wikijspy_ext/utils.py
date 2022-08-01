@@ -43,6 +43,7 @@ class ApiExtensions:
 
 
     def import_users_from_ldap(self, ldap_host: str, admin_dn: str, admin_passwd: str, ldap_search_dn: str, ldap_filter: str):
+        users_api = UsersApi(self.api_client)
         ldap = ldap3.Server(ldap_host)
         ldap_connection = ldap3.Connection(ldap, admin_dn, admin_passwd)
         ldap_connection.bind()
@@ -64,7 +65,7 @@ class ApiExtensions:
 
         for entry in ldap_connection.entries:
             logger.info(f"Creating user {str(entry['cn'])}.")
-            result = self.users_client.create(UserResponseOutput({"responseResult": ["errorCode", "message"]}), str(entry["mail"]), str(entry["cn"]), ldap_strat_key, str(entry["userPassword"]))
+            result = users_api.create(UserResponseOutput({"responseResult": ["errorCode", "message"]}), str(entry["mail"]), str(entry["cn"]), ldap_strat_key, str(entry["userPassword"]))
             error_code = result["users"]["create"]["responseResult"]["errorCode"]
             if error_code == AuthenticationUserErrors.AuthAccountAlreadyExists:
                 logger.warning(f"There already is an account using this email: {str(entry['mail'])}")
