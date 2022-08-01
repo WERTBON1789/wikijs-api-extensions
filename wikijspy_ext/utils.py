@@ -36,7 +36,7 @@ class ApiExtensions:
         with open(file_path, 'rb') as f:
             files = (
                 ('mediaUpload', (None, '{"folderId":'f'{folderId}''}')),
-                ('mediaUpload', (os.path.basename(file_path), f, self.file_ext_dict.get(os.path.splitext(file_path)[1], 'text/plain')))
+                ('mediaUpload', (os.path.basename(file_path), f.read(), self.file_ext_dict.get(os.path.splitext(file_path)[1], 'text/plain')))
             )
 
         return requests.post(url, headers=headers, files=files)
